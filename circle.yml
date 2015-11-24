@@ -1,1 +1,15 @@
 
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+    dependencies:
+  post:
+    - python ./install-packages
+    test:
+  override:
+    - php ./test-suite/run.php --unit-tests
+    test:
+  override:
+    - php ./app/run-server.php --daemon
+    - php ./test-suite/run.php --unit-tests
